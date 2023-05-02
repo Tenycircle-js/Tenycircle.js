@@ -1,4 +1,7 @@
 # Tenycircle.js
+## 制作者
+俺
+![Akawatavのアイコン](https://avatars.githubusercontent.com/u/127651665?s=40&v=4)
 ## このライブラリについて
 このライブラリはDOM操作や難しい演算などを得意とする軽量かつ強力なライブラリです
 ## メソッドについて
