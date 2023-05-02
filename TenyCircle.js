@@ -6,6 +6,9 @@
   $.id = function (text) {
     return document.getElementById((isArray(text)) ? text[0]: text)
   }
+  $.class = function (text) {
+    return document.getElementsByclassName(isArray(text)?text[0]:text)
+  }
   $.log = function (text) {
     console.log((isArray(text)) ? text[0]: text)
   }
