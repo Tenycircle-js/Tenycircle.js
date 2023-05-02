@@ -25,9 +25,6 @@
     return document.getElementsByTagName(isArray(name) ? name[0]: name)
   }
   $.name = function (name) {
-    function isArray(obj) {
-      return Object.prototype.toString.call(obj) === '[object Array]';
-    }
     return document.getElementsByName(isArray(name) ? name[0]: name)
   }
   $.text = function (target, changevalue) {
