@@ -6,9 +6,6 @@
   $.id = function (text) {
     return document.getElementById((isArray(text)) ? text[0]: text)
   }
-  $.class = function (text) {
-    return document.getElementsByclassName(isArray(text)?text[0]:text)
-  }
   $.log = function (text) {
     console.log((isArray(text)) ? text[0]: text)
   }
@@ -109,7 +106,20 @@
   $.confirm = function (str) {
     confirm(isArray(str)?str[0]:str)
   }
+  $.setcss = function (target,obj) {
+    object.keys(obj).forEach(function (val) {
+      target.style[val] = obj[val]
+    })
+  }
   $.version = 'v1.0.0'
+  $.newElement = function (tagname,Attr,html,addto,place) {
+    let Element = document.createElement(tagname)
+    $.html(Element,html)
+    object.keys(Attr).forEach(function(val){
+      Element[val] = Attr[val]
+    })
+    (place=="after"||place=="before")&&addto[place](Element)
+  }
   $.html.prototype = {
     init: function (target, changevalue) {
       this._elmtarget = (isArray(target) ? target[0]: target)
