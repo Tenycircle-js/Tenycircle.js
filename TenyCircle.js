@@ -1,13 +1,4 @@
-/*
-Tenycircle.js v1.0.0
-開発者:Akawatav
-コピーライトってなんや?
-まあコード丸コピする以外は基本何してもええで
-ブログなどにあげてもええんやで
-てかあげて有名にしてくれ
-じゃあこれで終わり
-*/
-(_=>{
+(_ => {
   window.$ = {}
   function isArray(obj) {
     return Object.prototype.toString.call(obj) === '[object Array]';
@@ -25,7 +16,7 @@ Tenycircle.js v1.0.0
     return (((isArray(text)) ? text[0]: text).slice(0, -1))
   }
   $.html = function (target, changevalue) {
-    return new $.html.prototype.init(target,changevalue)
+    return new $.html.prototype.init(target, changevalue)
   }
   $.tag = function (name) {
     return document.getElementsByTagName(isArray(name) ? name[0]: name)
@@ -34,7 +25,7 @@ Tenycircle.js v1.0.0
     return document.getElementsByName(isArray(name) ? name[0]: name)
   }
   $.text = function (target, changevalue) {
-   if (changevalue) {
+    if (changevalue) {
       (isArray(target) ? target[0]: target).textContent = changevalue
       return
     }
@@ -106,28 +97,46 @@ Tenycircle.js v1.0.0
   }
   $.prompt = function (str) {
     return function (defaultstr) {
-      prompt(isArray(str)?str[0]:str,isArray(defaultstr)?defaultstr[0]:defaultstr)
+      prompt(isArray(str)?str[0]: str, isArray(defaultstr)?defaultstr[0]: defaultstr)
     }
   }
   $.alert = function (str) {
-    alert(isArray(str)?str[0]:str)
+    alert(isArray(str)?str[0]: str)
   }
   $.confirm = function (str) {
-    confirm(isArray(str)?str[0]:str)
+    confirm(isArray(str)?str[0]: str)
   }
-  $.setcss = function (target,obj) {
+  $.setcss = function (target, obj) {
     object.keys(obj).forEach(function (val) {
       target.style[val] = obj[val]
     })
   }
   $.version = 'v1.0.0'
-  $.newElement = function (tagname,Attr,html,addto,place) {
+  $.newElement = function (tagname, Attr, html, addto, place) {
     let Element = document.createElement(tagname)
-    $.html(Element,html)
-    object.keys(Attr).forEach(function(val){
+    $.html(Element, html)
+    object.keys(Attr).forEach(function(val) {
       Element[val] = Attr[val]
     })
-    (place=="after"||place=="before")&&addto[place](Element)
+    (place == "after" || place == "before") && addto[place](Element)
+  }
+  $.or = function(...bools) {
+    for(i in bools) {
+      if((+i==i)&&i) {
+        var result =i 
+        break
+      }
+    }
+    return (result ??= !1)
+  }
+    $.and = function(...bools) {
+    for(i in bools) {
+      if((+i==i)&&(!i)) {
+        var result = i
+        break
+      }
+    }
+    return (result ??= !0)
   }
   $.html.prototype = {
     init: function (target, changevalue) {
@@ -155,9 +164,9 @@ Tenycircle.js v1.0.0
     },
     class: function (changevalue) {
       if ($.isnull(changevalue)) {
-        return this._elmtarget.getAttribute('id') ?? undefined
+        return this._elmtarget.getAttribute('class') ?? undefined
       } else {
-        this._elmtarget.setAttribute('id', changevalue)
+        this._elmtarget.setAttribute('class', changevalue)
         return this
       }
     },
