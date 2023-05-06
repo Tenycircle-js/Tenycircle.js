@@ -107,7 +107,7 @@
     confirm(isArray(str)?str[0]: str)
   }
   $.setcss = function (target, obj) {
-    object.keys(obj).forEach(function (val) {
+    Object.keys(obj).forEach(function (val) {
       target.style[val] = obj[val]
     })
   }
@@ -115,28 +115,106 @@
   $.newElement = function (tagname, Attr, html, addto, place) {
     let Element = document.createElement(tagname)
     $.html(Element, html)
-    object.keys(Attr).forEach(function(val) {
+    Object.keys(Attr).forEach(function(val) {
       Element[val] = Attr[val]
     })
     (place == "after" || place == "before") && addto[place](Element)
   }
   $.or = function(...bools) {
-    for(i in bools) {
-      if((+i==i)&&i) {
-        var result =i 
+    for(i of bools) {
+      if(i) {
+        var result = !0
         break
       }
     }
     return (result ??= !1)
   }
     $.and = function(...bools) {
-    for(i in bools) {
-      if((+i==i)&&(!i)) {
-        var result = i
+    for(i of bools) {
+      if(!i) {
+        var result = !1
         break
       }
     }
     return (result ??= !0)
+  }
+  $.reversestring = function(str){
+    str = isArray(str)?str[0]:str
+    return str.split``.reverse().join``
+  }
+  $.$ = function(selector){
+    this.elmtarget = document.querySelectorAll(selector)
+    var obj = {
+      onEvent: function(...option){
+        if(typeof option[0] =="Object") {
+          Object.keys(option[0]).forEach(function(val){
+            if(val.includes` `){
+              $.each(val.split` `,function(_,item){
+                this.elmtarget.addEventListener(item,option[0][val])
+              })
+            }
+            else {
+              this.elmtarget.addEventListener(val,option[0][val])
+            }
+          })
+        }
+        else {
+          if(option[0].includes` `){
+            $.each(option[0].split` `,function(_,item){
+              this.elmtarget.addEventListener(item,option[1])
+            })
+          }
+          else {
+            this.elmtarget.addEventListener(option[0],option[1])
+          }
+        }
+      }
+      ,
+      offEvent: function(eventname,funcname){
+        if(eventname.includes` `){
+          $.each(eventname.split` `,function(_,item){
+            this.elmtarget.removeEventListener(item,funcname)
+          })
+        }
+        else {
+          this.elmtarget.removeEventListener(eventname,funcname)
+        }
+      }
+      ,
+      addclass: function(classname) {
+        if(classname.includes` `) {
+          $.each(classname.split` `,function(_,item){
+            this.elmtarget.classList.add(item)
+          })
+        }
+        else {
+          this.elmtarget.classList.add(classname)
+        }
+      }
+      ,
+      removeclass: function(classname) {
+        if(classname.includes` `) {
+          $.each(classname.split` `,function(_,item){
+            this.elmtarget.classList.remove(item)
+          })
+        }
+        else {
+          this.elmtarget.classList.remove(classname)
+        }
+      }
+      ,
+      toggleclass: function(classname) {
+        if(classname.includes` `) {
+          $.each(classname.split` `,function(_,item){
+            this.elmtarget.classList.toggle(item)
+          })
+        }
+        else {
+          this.elmtarget.classList.toggle(classname)
+        }
+      }
+    }
+    return obj
   }
   $.html.prototype = {
     init: function (target, changevalue) {
