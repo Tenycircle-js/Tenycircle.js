@@ -216,6 +216,9 @@
     }
     return obj
   }
+  $.getjson = function(idname) {
+    return JSON.parse($.text($.id(idname)))
+  }
   $.html.prototype = {
     init: function (target, changevalue) {
       this._elmtarget = (isArray(target) ? target[0]: target)
